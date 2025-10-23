@@ -26,3 +26,36 @@ The goal is to establish an interoperable foundation for:
 ---
 
 ### Repository Structure
+synoptic/
+├── schemas/ # JSON schemas for each organ
+│ └── breast/v0.1/
+│ ├── synoptic.schema.json
+│ └── examples/
+│ └── case-0001.json
+├── validators/ # schema validation tools
+├── specs/ # human-readable reference documents
+└── .github/workflows/ # CI validation pipeline
+
+
+---
+
+### Relationship to Other Foundation Projects
+- **[staging-api](https://github.com/OpenPathologyFoundation/staging-api)** (planned):  
+  Independent API for AJCC/TNM staging logic.  
+- **validation-suite** (planned):  
+  Shared validation library for schema testing and CI/CD.  
+
+---
+
+### Contributing
+We welcome contributions from the community.  
+Please read the [CONTRIBUTING.md](CONTRIBUTING.md) and [GOVERNANCE.md](GOVERNANCE.md) before submitting pull requests.
+
+All content is released under the [Apache 2.0 License](LICENSE).
+
+---
+
+### Contact  
+Open Pathology Foundation  
+📧 info@openpathology.tech  
+🌐 https://openpathology.tech
