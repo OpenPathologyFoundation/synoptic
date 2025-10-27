@@ -25,17 +25,20 @@ The goal is to establish an interoperable foundation for:
 
 ---
 
-### Repository Structure
-synoptic/
-├── schemas/ # JSON schemas for each organ
-│ └── breast/v0.1/
-│ ├── synoptic.schema.json
-│ └── examples/
-│ └── case-0001.json
-├── validators/ # schema validation tools
-├── specs/ # human-readable reference documents
-└── .github/workflows/ # CI validation pipeline
+### 📁 Repository Structure
 
+```text
+synoptic/
+├── schemas/                 # JSON schemas for each organ
+│   └── breast/
+│       └── v0.1/
+│           ├── synoptic.schema.json
+│           └── examples/
+│               └── case-0001.json
+├── validators/              # schema validation tools
+├── specs/                   # human-readable reference documents
+└── .github/
+    └── workflows/           # CI validation pipeline
 
 ---
 
