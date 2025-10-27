@@ -1,0 +1,11 @@
+{
+  "specimenType": "Lumpectomy",
+  "invasiveCarcinoma": "Present",
+  "histologicType": "NST (ductal)",
+  "tumorSizeMM": 18,
+  "skinInvolvement": "None",
+  "chestWallInvolvement": "None",
+  "lymphNodesExamined": 3,
+  "lymphNodesPositive": 0,
+  "tCategoryProposed": "T1"
+}
