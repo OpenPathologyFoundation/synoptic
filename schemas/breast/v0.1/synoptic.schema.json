@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openpathology.tech/schemas/breast/v0.1/synoptic.schema.json",
+  "title": "Breast Resection Synoptic v0.1",
+  "type": "object",
+  "required": ["specimenType", "invasiveCarcinoma", "tumorSizeMM"],
+  "properties": {
+    "specimenType": {
+      "type": "string",
+      "enum": ["Lumpectomy", "Mastectomy", "Re-excision", "Other"],
+      "description": "Primary specimen category."
+    },
+    "invasiveCarcinoma": {
+      "type": "string",
+      "enum": ["Present", "Absent"],
+      "description": "Presence of invasive carcinoma."
+    },
+    "histologicType": {
+      "type": "string",
+      "enum": ["NST (ductal)", "Lobular", "Mixed", "Other"],
+      "description": "WHO type if invasive carcinoma present."
+    },
+    "tumorSizeMM": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Largest invasive focus (mm). If absent, put 0."
+    },
+    "skinInvolvement": {
+      "type": "string",
+      "enum": ["None", "Dermal invasion", "Ulceration", "Satellite nodules"],
+      "description": "Skin involvement by tumor."
+    },
+    "chestWallInvolvement": {
+      "type": "string",
+      "enum": ["None", "Pectoralis only", "Chest wall"],
+      "description": "Anatomic involvement."
+    },
+    "lymphNodesExamined": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total number of lymph nodes evaluated histologically."
+    },
+    "lymphNodesPositive": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of positive lymph nodes."
+    },
+    "tCategoryProposed": {
+      "type": "string",
+      "enum": ["Tis", "T1", "T2", "T3", "T4a", "T4b", "T4c", "T4d"],
+      "description": "Pathologist- or algorithm-proposed T category."
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "invasiveCarcinoma": { "const": "Present" }
+        }
+      },
+      "then": {
+        "required": ["histologicType"]
+      },
+      "else": {
+        "properties": {
+          "tumorSizeMM": { "const": 0 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "skinInvolvement": { "enum": ["Ulceration", "Satellite nodules"] }
+        }
+      },
+      "then": {
+        "properties": {
+          "tCategoryProposed": { "enum": ["T4b", "T4d"] }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "chestWallInvolvement": { "const": "Chest wall" }
+        }
+      },
+      "then": {
+        "properties": {
+          "tCategoryProposed": { "enum": ["T4a"] }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "lymphNodesExamined": { "type": "integer" },
+          "lymphNodesPositive": { "type": "integer" }
+        }
+      },
+      "then": {
+        "allOf": [
+          {
+            "properties": {
+              "lymphNodesPositive": {
+                "maximum": { "$data": "1/lymphNodesExamined" }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "additionalProperties": false
+}
